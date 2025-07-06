@@ -1,0 +1,30 @@
+#define MOTOR1_PIN 6
+#define MOTOR2_PIN 7
+
+void setup() {
+  pinMode(MOTOR1_PIN, OUTPUT);
+  pinMode(MOTOR2_PIN, OUTPUT);
+  Serial.begin(9600);
+  digitalWrite(MOTOR1_PIN, LOW);
+  digitalWrite(MOTOR2_PIN, LOW);
+}
+
+void loop() {
+  if (Serial.available()) {
+    String command = Serial.readStringUntil('\n');
+    
+    if (command == "SINGLE") {
+      digitalWrite(MOTOR1_PIN, HIGH);
+      digitalWrite(MOTOR2_PIN, LOW);
+    } 
+    else if (command == "DOUBLE") {
+      digitalWrite(MOTOR1_PIN, HIGH);
+      digitalWrite(MOTOR2_PIN, HIGH);
+    } 
+    else { // OFF or unknown
+      digitalWrite(MOTOR1_PIN, LOW);
+      digitalWrite(MOTOR2_PIN, LOW);
+    }
+  }
+  delay(10);
+}
